@@ -14,7 +14,7 @@ function addCard(card, removeCard) {
     ".card__image"
   ).alt = `Изображение места: ${card.name}`;
   cardContainer.append(cardElement);
-  console.log(`${card.name} card added`);
+  //console.log(`${card.name} card added`);
 }
 /*
 addCardButton.addEventListener("click", function () {
@@ -23,7 +23,7 @@ addCardButton.addEventListener("click", function () {
 */
 // @todo: Функция удаления карточки
 function removeCard(cardElement) {
-  console.log(`card was deleted`);
+  //console.log(`card was deleted`);
   cardElement.remove();
 }
 // @todo: Вывести карточки на страницу
