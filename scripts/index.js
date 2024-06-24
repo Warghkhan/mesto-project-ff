@@ -10,10 +10,11 @@ function addCard(card, removeCard) {
   deleteCardButton.addEventListener("click", () => removeCard(cardElement));
   cardElement.querySelector(".card__title").textContent = card.name;
   cardElement.querySelector(".card__image").src = card.link;
-  cardElement.querySelector(".card__image").alt = `Изображение места: ${card.name}`
+  cardElement.querySelector(
+    ".card__image"
+  ).alt = `Изображение места: ${card.name}`;
   cardContainer.append(cardElement);
   console.log(`${card.name} card added`);
-
 }
 /*
 addCardButton.addEventListener("click", function () {
