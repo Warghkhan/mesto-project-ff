@@ -3,7 +3,7 @@ const cardTemplate = document.querySelector("#card-template").content;
 // @todo: DOM узлы
 const addCardButton = document.querySelector(".profile__add-button");
 const cardContainer = document.querySelector(".places__list");
-const cardImage =  cardElement.querySelector(".card__image");
+const cardImage = cardElement.querySelector(".card__image");
 // @todo: Функция создания карточки
 function addCard(card, removeCard) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -13,16 +13,10 @@ function addCard(card, removeCard) {
   cardImage.src = card.link;
   cardImage.alt = `Изображение места: ${card.name}`;
   cardContainer.append(cardElement);
-  //console.log(`${card.name} card added`);
 }
-/*
-addCardButton.addEventListener("click", function () {
-  console.log("add card button clicked");
-});
-*/
+
 // @todo: Функция удаления карточки
 function removeCard(cardElement) {
-  //console.log(`card was deleted`);
   cardElement.remove();
 }
 // @todo: Вывести карточки на страницу
