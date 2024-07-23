@@ -3,16 +3,15 @@ const cardTemplate = document.querySelector("#card-template").content;
 // @todo: DOM узлы
 const addCardButton = document.querySelector(".profile__add-button");
 const cardContainer = document.querySelector(".places__list");
+const cardImage =  cardElement.querySelector(".card__image");
 // @todo: Функция создания карточки
 function addCard(card, removeCard) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const deleteCardButton = cardElement.querySelector(".card__delete-button");
   deleteCardButton.addEventListener("click", () => removeCard(cardElement));
   cardElement.querySelector(".card__title").textContent = card.name;
-  cardElement.querySelector(".card__image").src = card.link;
-  cardElement.querySelector(
-    ".card__image"
-  ).alt = `Изображение места: ${card.name}`;
+  cardImage.src = card.link;
+  cardImage.alt = `Изображение места: ${card.name}`;
   cardContainer.append(cardElement);
   //console.log(`${card.name} card added`);
 }
