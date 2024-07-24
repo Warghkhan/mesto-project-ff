@@ -1,4 +1,5 @@
 import './styles/index.css';
+import { initialCards } from './cards';
 
 // @todo: Темплейт карточки
 const cardTemplate = document.querySelector("#card-template").content;
@@ -7,6 +8,7 @@ const addCardButton = document.querySelector(".profile__add-button");
 const cardContainer = document.querySelector(".places__list");
 const cardImage = cardElement.querySelector(".card__image");
 // @todo: Функция создания карточки
+
 function addCard(card, removeCard) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const deleteCardButton = cardElement.querySelector(".card__delete-button");
