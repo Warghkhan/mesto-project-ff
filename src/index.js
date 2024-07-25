@@ -1,5 +1,5 @@
 import './styles/index.css';
-import { initialCards } from './cards';
+import { initialCards } from './cards.js';
 import currentAvatarImage from './images/avatar.jpg';
 
 // @todo: Темплейт карточки
@@ -36,6 +36,7 @@ function removeCard(cardElement) {
 function renderCards(cardArray) {
   cardArray.forEach((element) => {
     addCard(element, removeCard);
+    console.log(element);
   });
 }
 renderCards(initialCards);
