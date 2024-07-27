@@ -7,8 +7,10 @@ const cardTemplate = document.querySelector("#card-template").content;
 // @todo: DOM узлы
 const addCardButton = document.querySelector(".profile__add-button");
 const cardContainer = document.querySelector(".places__list");
+/*
 const cardElement = cardTemplate.querySelector(".card");
 const cardImage = cardElement.querySelector(".card__image");
+*/
 // @todo: Функция создания карточки
 const avatarImage = new URL ('./images/avatar.jpg', import.meta.url);
 const avatar = {
@@ -19,7 +21,8 @@ const avatarCircle = document.querySelector(".profile__image");
 
 
 function addCard(card,  removeCard ) {
-  cardElement.cloneNode(true);
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardImage = cardElement.querySelector(".card__image");
   const deleteCardButton = cardElement.querySelector(".card__delete-button");
   deleteCardButton.addEventListener("click", () => removeCard(cardElement));
   cardElement.querySelector(".card__title").textContent = card.name;
