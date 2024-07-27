@@ -17,6 +17,7 @@ module.exports = {
     port: 8080,
     open: true,
   },
+
   module: {
     rules: [
       {
@@ -42,6 +43,13 @@ module.exports = {
       },
     ],
   },
+
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
