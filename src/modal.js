@@ -1,11 +1,36 @@
-export {openModal, closeModal}
-/*
-const modalWindow = document.querySelector(".popup");
-*/
+export { openModal, closeModal };
+
 function openModal(modalWindow) {
-  modalWindow.style.display = "flex";
+  modalWindow.classList.remove("popup_is-animated");
+  modalWindow.classList.add("popup_is-opened");
+  const popupCloseButton = modalWindow.querySelector(".popup__close");
+  popupCloseButton.addEventListener("click", function () {
+    closeModal(modalWindow);
+  }, {once: true});
+
+  modalWindow.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      closeModal(modalWindow);
+      console.log(e.key);
+    }
+  }, {once: true});
+
+  modalWindow.parentElement.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      closeModal(modalWindow);
+      console.log(e.key);
+    }
+  }, {once: true});
+
+  modalWindow.addEventListener("click", function (e) {
+    if (e.target.classList.contains("popup_is-opened")) {
+      closeModal(modalWindow);
+    };
+  }, {once: true});
+
 }
 
 function closeModal(modalWindow) {
-  modalWindow.style.display = "none";
+  modalWindow.classList.remove("popup_is-opened");
+  modalWindow.classList.add("popup_is-animated");
 }

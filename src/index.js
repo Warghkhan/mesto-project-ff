@@ -3,25 +3,20 @@ import { initialCards } from "./cards.js";
 import { addCard, removeCard, likeCard } from "./card.js";
 import { openModal, closeModal} from "./modal.js";
 
-// @todo: DOM узлы
 const addCardButton = document.querySelector(".profile__add-button");
 const addCardModalWindow = document.querySelector(".popup_type_new-card");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileEditModalWindow = document.querySelector(".popup_type_edit");
 
-const popupCloseButton = document.querySelector(".popup__close");
-
-// Находим форму в DOM
-
-/*const formElement = document.querySelector("");
-// Находим поля формы в DOM
+/*
+const formElement = document.querySelector("");
 const nameInput = document.querySelector("");
 const jobInput = document.querySelector("");
-*/
 
 
-/*
+
+
 function handleFormSubmit(evt) {
   evt.preventDefault(); 
   // Эта строчка отменяет стандартную отправку формы.
@@ -51,10 +46,6 @@ addCardButton.addEventListener("click", () => {
 
 profileEditButton.addEventListener("click", () => {
   openModal(profileEditModalWindow);
-});
-
-popupCloseButton.addEventListener("click", function() {
-  console.log("try close");
 });
 
 
