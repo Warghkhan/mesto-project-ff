@@ -5,10 +5,6 @@ export { createCard, removeCard, likeCard, openCardImage };
 const cardTemplate = document.querySelector("#card-template").content;
 
 const cardImageModalWindow = document.querySelector(".popup_type_image");
-const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-const cardImage = cardElement.querySelector(".card__image");
-const deleteCardButton = cardElement.querySelector(".card__delete-button");
-const cardLikeButton = cardElement.querySelector(".card__like-button");
 
 function createCard(card, { removeCard, likeCard, openCardImage }) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);

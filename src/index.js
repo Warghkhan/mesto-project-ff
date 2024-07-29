@@ -56,7 +56,7 @@ newPlaceFormElement.addEventListener("submit", newPlaceFormHandler);
 
 function renderCards(cardArray) {
   cardArray.forEach((element) => {
-    cardContainer.prepend(
+    cardContainer.append(
       createCard(element, { removeCard, likeCard, openCardImage })
     );
   });
