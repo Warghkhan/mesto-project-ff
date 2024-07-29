@@ -23,7 +23,7 @@ function openModal(modalWindow) {
     { once: true }
   );
 
-  modalWindow.parentElement.addEventListener(
+  document.addEventListener(
     "keydown",
     function (e) {
       if (e.key === "Escape") {
