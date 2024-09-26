@@ -11,6 +11,7 @@ function closeModal(modalWindow) {
   modalWindow.classList.remove("popup_is-opened");
   modalWindow.classList.add("popup_is-animated");
   document.removeEventListener("keydown", closePopupByEsc);
+  modalWindow.removeEventListener("click", closeModalByOverlayAndCrossButton);
 }
 
 function closePopupByEsc(e) {

@@ -13,6 +13,33 @@
 .popup__input:last-of-type {
   margin-bottom: 0;
 }
+/*
+.popup__input:invalid {
+  border-color: #ff0000;
+}
+
+.popup__input:valid {
+  border-color:  rgba(0, 0, 0, .2);
+}
+*/
+
+.popup__input_type_error {
+  /*margin-bottom: 0;
+  padding-bottom: 0;*/
+
+}
+
+.popup__error_visible {
+  /*position: absolute;*/
+  display: block;
+  margin: 0;
+  padding: 0;
+  margin-top: 0;
+  font-size: 12px;
+  color: #FF0000;
+  line-height: 14.52px;
+  /*outline: 1px solid black;*/
+}
 
 @media screen and (max-width: 568px) {
   .popup__title {

@@ -1,10 +1,6 @@
-import { openModal, closeModal } from "./modal.js";
-
-export { createCard, removeCard, likeCard, openCardImage };
+export { createCard, removeCard, likeCard };
 
 const cardTemplate = document.querySelector("#card-template").content;
-
-const cardImageModalWindow = document.querySelector(".popup_type_image");
 
 function createCard(card, { removeCard, likeCard, openCardImage }) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -34,17 +30,3 @@ function likeCard(cardElement) {
     .classList.toggle("card__like-button_is-active");
 }
 
-function openCardImage(cardElement) {
-  openModal(cardImageModalWindow);
-  const cardImageModalWindowImageContent =
-    cardImageModalWindow.querySelector(".popup__image");
-  cardImageModalWindowImageContent.src =
-    cardElement.querySelector(".card__image").src;
-  cardImageModalWindowImageContent.alt =
-    cardElement.querySelector(".card__image").alt;
-
-  const cardImageModalWindowCaptionContent =
-    cardImageModalWindow.querySelector(".popup__caption");
-  cardImageModalWindowCaptionContent.textContent =
-    cardElement.querySelector(".card__title").textContent;
-}
