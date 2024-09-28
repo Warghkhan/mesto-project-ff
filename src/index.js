@@ -2,11 +2,7 @@ import "./styles/index.css";
 import { createCard, removeCard, likeCard } from "./components/card.js";
 import { openModal, closeModal } from "./components/modal.js";
 import { enableValidation, clearValidation } from "./components/validation.js";
-import {
-  getInitialCards,
-  getUserData,
-  getStartData,
-} from "./components/api.js";
+import { getInitialCards, getUserData } from "./components/api.js";
 
 const cardContainer = document.querySelector(".places__list");
 
