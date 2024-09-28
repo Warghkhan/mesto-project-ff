@@ -6,32 +6,22 @@ const configurations = {
   },
 };
 
-export const getResData = (res) => {
+const getResponseData = (res) => {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(`Ошибка: ${res.status}`);
+  return Promise.reject(`Ошибка ${res.status}`);
 };
 
-export const getUserInfo = async () => {
+export const getUserData = async () => {
   return fetch(`${configurations.baseUrl}/users/me`, {
     headers: configurations.headers,
-  }).then((res) => getResData(res));
+  }).then((res) => getResponseData(res));
 };
 
-export const getInitialCards = () => {
+export const getInitialCards = async () => {
   return fetch(`${configurations.baseUrl}/cards`, {
     headers: configurations.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+  }).then((res) => getResponseData(res));
 };
 
-export const getInitialInfo = async () => {
-  return Promise.all([getUserInfo(), getInitialCards()]);
-};

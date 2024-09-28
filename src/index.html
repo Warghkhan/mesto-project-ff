@@ -20,15 +20,19 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <div
-            class="profile__image"
-            style="background-image: url(<%=require('./images/avatar.jpg')%>)"
-          ></div>
-          <div class="profile__info">
-            <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button" type="button"></button>
-            <p class="profile__description">Исследователь океана</p>
+          <div class="profile__image_cover">
+            <div class="profile__image-overlay"></div>
+            <div
+              class="profile__image"
+              style="background-image: url(<%=require('./images/avatar.jpg')%>)"
+            ></div>
           </div>
+          <div class="profile__info">
+            <h1 class="profile__title"></h1>
+            <button class="profile__edit-button" type="button"></button>
+            <p class="profile__description"></p>
+          </div>
+
           <button class="profile__add-button" type="button"></button>
         </section>
         <section class="places page__section">

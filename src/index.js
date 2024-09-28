@@ -1,10 +1,12 @@
 import "./styles/index.css";
-import { initialCards } from "./cards.js";
 import { createCard, removeCard, likeCard } from "./components/card.js";
 import { openModal, closeModal } from "./components/modal.js";
 import { enableValidation, clearValidation } from "./components/validation.js";
-import { getResData, getInitialCards, getUserInfo, getInitialInfo} from "./components/api.js";
-
+import {
+  getInitialCards,
+  getUserData,
+  getStartData,
+} from "./components/api.js";
 
 const cardContainer = document.querySelector(".places__list");
 
@@ -17,6 +19,7 @@ const profileEditModalWindow = document.querySelector(".popup_type_edit");
 
 const nameCurrent = document.querySelector(".profile__title");
 const jobCurrent = document.querySelector(".profile__description");
+const imageCurrent = document.querySelector(".profile__image");
 
 const profileFormElement = document.querySelector(".profile__form");
 const nameInput = document.querySelector(".popup__input_type_name");
@@ -26,6 +29,8 @@ const newPlaceFormElement = document.querySelector(".new__place__form");
 const placeInput = document.querySelector(".popup__input_type_card-name");
 const placeLinkInput = document.querySelector(".popup__input_type_url");
 
+let userId = null;
+
 const validationSettings = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -34,6 +39,24 @@ const validationSettings = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
+
+function startWorking() {
+  Promise.all([getUserData(), getInitialCards()])
+    .then((data) => {
+      const [userData, initialCards] = data;
+      imageCurrent.style.backgroundImage = `url(${userData.avatar})`;
+      nameCurrent.textContent = userData.name;
+      jobCurrent.textContent = userData.about;
+      userId = userData._id;
+      renderCards(initialCards, userId);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  enableValidation(validationSettings);
+}
+
+startWorking();
 
 function profileFormHandler(evt) {
   evt.preventDefault();
@@ -57,14 +80,6 @@ function newPlaceFormHandler(evt) {
 
   newPlaceFormElement.reset();
   closeModal(createCardModalWindow);
-  try {
-    getInitialInfo();
-  }
-   catch (err){
-    console.log(err);
-  }
-  
-  //console.log(getInitialCards);
 }
 newPlaceFormElement.addEventListener("submit", newPlaceFormHandler);
 
@@ -75,7 +90,6 @@ function renderCards(cardArray) {
     );
   });
 }
-renderCards(initialCards);
 
 function openCardImage(cardElement) {
   openModal(cardImageModalWindow);
@@ -104,6 +118,7 @@ profileEditButton.addEventListener("click", () => {
   openModal(profileEditModalWindow);
   nameInput.value = nameCurrent.textContent;
   jobInput.value = jobCurrent.textContent;
+
   if (nameInput.value && jobInput.value) {
     clearValidation(
       profileEditModalWindow.querySelector(validationSettings.formSelector),
@@ -111,7 +126,5 @@ profileEditButton.addEventListener("click", () => {
     );
   }
 });
-
-enableValidation(validationSettings);
 
 // @todo: @todo: @todo:@todo:@todo:@todo:@todooooooooo: @dodododo: pinkpanther

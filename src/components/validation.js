@@ -37,7 +37,6 @@ const checkInputValidity = (formElement, inputElement, validationSettings) => {
       formElement,
       inputElement,
       chooseErrorMessages(inputElement),
-
       validationSettings
     );
   } else {
