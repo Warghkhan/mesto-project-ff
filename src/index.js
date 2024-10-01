@@ -2,7 +2,12 @@ import "./styles/index.css";
 import { createCard, removeCard, likeCard } from "./components/card.js";
 import { openModal, closeModal } from "./components/modal.js";
 import { enableValidation, clearValidation } from "./components/validation.js";
-import { getInitialCards, getUserData } from "./components/api.js";
+import {
+  getInitialCards,
+  getUserData,
+  changeUserData,
+  addNewCard,
+} from "./components/api.js";
 
 const cardContainer = document.querySelector(".places__list");
 
@@ -25,7 +30,7 @@ const newPlaceFormElement = document.querySelector(".new__place__form");
 const placeInput = document.querySelector(".popup__input_type_card-name");
 const placeLinkInput = document.querySelector(".popup__input_type_url");
 
-let userId = null;
+let userId;
 
 const validationSettings = {
   formSelector: ".popup__form",
@@ -45,19 +50,28 @@ function startWorking() {
       jobCurrent.textContent = userData.about;
       userId = userData._id;
       renderCards(initialCards, userId);
+      console.log(initialCards);
     })
     .catch((error) => {
       console.log(error);
     });
+
   enableValidation(validationSettings);
+  console.log("refresh");
 }
 
 startWorking();
 
 function profileFormHandler(evt) {
   evt.preventDefault();
-  nameCurrent.textContent = nameInput.value;
-  jobCurrent.textContent = jobInput.value;
+  const userData = {
+    name: nameInput.value,
+    about: jobInput.value,
+  };
+
+  nameCurrent.textContent = userData.name;
+  jobCurrent.textContent = userData.about;
+  changeUserData(userData);
   closeModal(profileEditModalWindow);
 }
 profileFormElement.addEventListener("submit", profileFormHandler);
@@ -68,13 +82,14 @@ function newPlaceFormHandler(evt) {
     name: placeInput.value,
     link: placeLinkInput.value,
   };
+  addNewCard(newCard);
   if (newCard.name !== "" && newCard.link !== "") {
     cardContainer.prepend(
-      createCard(newCard, { removeCard, likeCard, openCardImage })
+      createCard(newCard, { removeCard, likeCard, openCardImage }, userId)
     );
   }
-
   newPlaceFormElement.reset();
+  startWorking();
   closeModal(createCardModalWindow);
 }
 newPlaceFormElement.addEventListener("submit", newPlaceFormHandler);
@@ -82,7 +97,7 @@ newPlaceFormElement.addEventListener("submit", newPlaceFormHandler);
 function renderCards(cardArray) {
   cardArray.forEach((element) => {
     cardContainer.append(
-      createCard(element, { removeCard, likeCard, openCardImage })
+      createCard(element, { removeCard, likeCard, openCardImage }, userId)
     );
   });
 }
