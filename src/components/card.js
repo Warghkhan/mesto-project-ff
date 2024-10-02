@@ -18,11 +18,8 @@ function createCard(card, { removeCard, likeCard, openCardImage }, userId) {
   cardElement.querySelector(".card__title").textContent = card.name;
   cardImage.src = card.link;
   cardImage.alt = `Изображение места: ${card.name}`;
-  cardImage.addEventListener("click", () => openCardImage(cardElement));
-  cardLikeButton.addEventListener("click", () =>
-    likeCard(cardElement, card, userId)
-  );
 
+  
   try {
     if (userId == card.owner._id) {
       deleteCardButton.classList.remove("card__delete-button-hidden");
@@ -41,6 +38,9 @@ function createCard(card, { removeCard, likeCard, openCardImage }, userId) {
     console.log(err);
   }
 
+  cardImage.addEventListener("click", () => openCardImage(cardElement));
+  cardLikeButton.addEventListener("click", () => likeCard(cardElement, card));
+
   return cardElement;
 }
 
@@ -49,7 +49,7 @@ function removeCard(cardElement, card) {
   cardElement.remove();
 }
 
-function likeCard(cardElement, card, userId) {
+function likeCard(cardElement, card) {
   const cardLikeButton = cardElement.querySelector(".card__like-button");
   const likeCardCount = cardElement.querySelector(".card__like-button-counter");
   //cardLikeButton.classList.toggle("card__like-button_is-active");
@@ -62,6 +62,7 @@ function likeCard(cardElement, card, userId) {
 
   liking(card)
     .then((likedCard) => {
+      console.log("test");
       cardLikeButton.classList.toggle("card__like-button_is-active");
       likeCardCount.textContent = likedCard.likes.length;
     })
