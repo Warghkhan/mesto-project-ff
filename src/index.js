@@ -82,14 +82,15 @@ function newPlaceFormHandler(evt) {
     name: placeInput.value,
     link: placeLinkInput.value,
   };
-  addNewCard(newCard);
+
   if (newCard.name !== "" && newCard.link !== "") {
-    cardContainer.prepend(
-      createCard(newCard, { removeCard, likeCard, openCardImage }, userId)
-    );
+    addNewCard(newCard).then((cardData) => {
+      cardContainer.prepend(
+        createCard(cardData, { removeCard, likeCard, openCardImage }, userId)
+      );
+    });
   }
   newPlaceFormElement.reset();
-  startWorking();
   closeModal(createCardModalWindow);
 }
 newPlaceFormElement.addEventListener("submit", newPlaceFormHandler);

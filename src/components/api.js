@@ -55,13 +55,10 @@ export const deleteOwnerCard = (cardData) => {
 };
 
 export const putLikeCard = (cardData) => {
-  console.log(cardData);
   return fetch(`${configurations.baseUrl}/cards/likes/${cardData._id}`, {
     method: "PUT",
     headers: configurations.headers,
   }).then((res) => getResponseData(res));
-
-  //console.log(cardData);
 };
 
 export const deleteLikeCard = (cardData) => {
@@ -70,12 +67,3 @@ export const deleteLikeCard = (cardData) => {
     headers: configurations.headers,
   }).then((res) => getResponseData(res));
 };
-
-/*
-export const updateLikeCard = (cardData) => {
-  return fetch(`${configurations.baseUrl}/cards/likes/${cardData._id}`, {
-    //method: "GET",
-    headers: configurations.headers,
-  }).then((res) => getResponseData(res));
-}
-  */
