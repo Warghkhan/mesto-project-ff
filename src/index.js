@@ -7,6 +7,7 @@ import {
   getUserData,
   changeUserData,
   addNewCard,
+  changeUserAvatar,
 } from "./components/api.js";
 
 const cardContainer = document.querySelector(".places__list");
@@ -18,9 +19,15 @@ const cardImageModalWindow = document.querySelector(".popup_type_image");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileEditModalWindow = document.querySelector(".popup_type_edit");
 
-const nameCurrent = document.querySelector(".profile__title");
-const jobCurrent = document.querySelector(".profile__description");
-const imageCurrent = document.querySelector(".profile__image");
+const changeAvatarButton = document.querySelector(".profile__image-overlay");
+const changeAvatarModalWindow = document.querySelector(
+  ".popup_type_change-avatar"
+);
+const changeAvatarFormElement = document.querySelector(".change-avatar__form");
+const changeAvatarLinkInput = document.querySelector(
+  ".popup__input_type_url_avatar"
+);
+
 
 const profileFormElement = document.querySelector(".profile__form");
 const nameInput = document.querySelector(".popup__input_type_name");
@@ -29,6 +36,10 @@ const jobInput = document.querySelector(".popup__input_type_description");
 const newPlaceFormElement = document.querySelector(".new__place__form");
 const placeInput = document.querySelector(".popup__input_type_card-name");
 const placeLinkInput = document.querySelector(".popup__input_type_url");
+
+const nameCurrent = document.querySelector(".profile__title");
+const jobCurrent = document.querySelector(".profile__description");
+const imageCurrent = document.querySelector(".profile__image");
 
 let userId;
 
@@ -52,8 +63,8 @@ function startWorking() {
       renderCards(initialCards, userId);
       console.log(initialCards);
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((err) => {
+      console.log(err);
     });
 
   enableValidation(validationSettings);
@@ -69,12 +80,37 @@ function profileFormHandler(evt) {
     about: jobInput.value,
   };
 
-  nameCurrent.textContent = userData.name;
-  jobCurrent.textContent = userData.about;
-  changeUserData(userData);
+  changeUserData(userData)
+    .then((data) => {
+      nameCurrent.textContent = userData.name;
+      jobCurrent.textContent = userData.about;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   closeModal(profileEditModalWindow);
 }
 profileFormElement.addEventListener("submit", profileFormHandler);
+
+function changeAvatarHandler(evt) {
+  evt.preventDefault();
+  const avatarData = {
+    avatar: changeAvatarLinkInput.value,
+  };
+  changeUserAvatar(avatarData.avatar).then((userData) => {
+    imageCurrent.style.backgroundImage = `url(${userData.avatar})`;
+  })
+
+}
+changeAvatarButton.addEventListener("click", () => {
+  clearValidation(
+    changeAvatarModalWindow.querySelector(validationSettings.formSelector),
+    validationSettings
+  );
+  openModal(changeAvatarModalWindow);
+});
+
+changeAvatarFormElement.addEventListener("submit", changeAvatarHandler);
 
 function newPlaceFormHandler(evt) {
   evt.preventDefault();
@@ -84,11 +120,15 @@ function newPlaceFormHandler(evt) {
   };
 
   if (newCard.name !== "" && newCard.link !== "") {
-    addNewCard(newCard).then((cardData) => {
-      cardContainer.prepend(
-        createCard(cardData, { removeCard, likeCard, openCardImage }, userId)
-      );
-    });
+    addNewCard(newCard)
+      .then((cardData) => {
+        cardContainer.prepend(
+          createCard(cardData, { removeCard, likeCard, openCardImage }, userId)
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   newPlaceFormElement.reset();
   closeModal(createCardModalWindow);

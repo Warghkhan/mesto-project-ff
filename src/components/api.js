@@ -36,6 +36,16 @@ export const changeUserData = (userData) => {
   }).then((res) => getResponseData(res));
 };
 
+export const changeUserAvatar = (avatarLink) => {
+  return fetch(`${configurations.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: configurations.headers,
+    body: JSON.stringify({
+      avatar: avatarLink,
+    }),
+  }).then((res) => getResponseData(res));
+};
+
 export const addNewCard = (cardData) => {
   return fetch(`${configurations.baseUrl}/cards`, {
     method: "POST",
