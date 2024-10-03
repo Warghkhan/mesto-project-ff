@@ -28,7 +28,6 @@ const changeAvatarLinkInput = document.querySelector(
   ".popup__input_type_url_avatar"
 );
 
-
 const profileFormElement = document.querySelector(".profile__form");
 const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_description");
@@ -73,8 +72,17 @@ function startWorking() {
 
 startWorking();
 
+const savingProcessButtonLabel = (evt) => {
+  evt.target.querySelector(".popup__button").textContent = "Сохранение...";
+};
+
+const renewSaveButtonLabel = (modalWindow) => {
+  modalWindow.querySelector(".popup__button").textContent = "Сохранить";
+};
+
 function profileFormHandler(evt) {
   evt.preventDefault();
+  savingProcessButtonLabel(evt);
   const userData = {
     name: nameInput.value,
     about: jobInput.value,
@@ -92,28 +100,36 @@ function profileFormHandler(evt) {
 }
 profileFormElement.addEventListener("submit", profileFormHandler);
 
-function changeAvatarHandler(evt) {
-  evt.preventDefault();
-  const avatarData = {
-    avatar: changeAvatarLinkInput.value,
-  };
-  changeUserAvatar(avatarData.avatar).then((userData) => {
-    imageCurrent.style.backgroundImage = `url(${userData.avatar})`;
-  })
-
-}
 changeAvatarButton.addEventListener("click", () => {
   clearValidation(
     changeAvatarModalWindow.querySelector(validationSettings.formSelector),
     validationSettings
   );
+  renewSaveButtonLabel(changeAvatarModalWindow);
   openModal(changeAvatarModalWindow);
 });
+
+function changeAvatarHandler(evt) {
+  evt.preventDefault();
+  savingProcessButtonLabel(evt);
+  const avatarData = {
+    avatar: changeAvatarLinkInput.value,
+  };
+  changeUserAvatar(avatarData.avatar)
+    .then((userData) => {
+      imageCurrent.style.backgroundImage = `url(${userData.avatar})`;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  closeModal(changeAvatarModalWindow);
+}
 
 changeAvatarFormElement.addEventListener("submit", changeAvatarHandler);
 
 function newPlaceFormHandler(evt) {
   evt.preventDefault();
+  savingProcessButtonLabel(evt);
   const newCard = {
     name: placeInput.value,
     link: placeLinkInput.value,
@@ -163,11 +179,13 @@ createCardButton.addEventListener("click", () => {
     createCardModalWindow.querySelector(validationSettings.formSelector),
     validationSettings
   );
+  renewSaveButtonLabel(createCardModalWindow);
   openModal(createCardModalWindow);
 });
 
 profileEditButton.addEventListener("click", () => {
   openModal(profileEditModalWindow);
+  renewSaveButtonLabel(profileEditModalWindow);
   nameInput.value = nameCurrent.textContent;
   jobInput.value = jobCurrent.textContent;
 
