@@ -60,14 +60,12 @@ function startWorking() {
       jobCurrent.textContent = userData.about;
       userId = userData._id;
       renderCards(initialCards, userId);
-      console.log(initialCards);
     })
     .catch((err) => {
       console.log(err);
     });
 
   enableValidation(validationSettings);
-  console.log("refresh");
 }
 
 startWorking();
