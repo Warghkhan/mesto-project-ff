@@ -91,10 +91,15 @@ function profileFormHandler(evt) {
       nameCurrent.textContent = userData.name;
       jobCurrent.textContent = userData.about;
     })
+    .then(() => {
+      closeModal(profileEditModalWindow);
+    })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      renewSaveButtonLabel(profileEditModalWindow);
     });
-  closeModal(profileEditModalWindow);
 }
 profileFormElement.addEventListener("submit", profileFormHandler);
 
@@ -103,7 +108,7 @@ changeAvatarButton.addEventListener("click", () => {
     changeAvatarModalWindow.querySelector(validationSettings.formSelector),
     validationSettings
   );
-  renewSaveButtonLabel(changeAvatarModalWindow);
+
   openModal(changeAvatarModalWindow);
 });
 
@@ -117,10 +122,15 @@ function changeAvatarHandler(evt) {
     .then((userData) => {
       imageCurrent.style.backgroundImage = `url(${userData.avatar})`;
     })
+    .then(() => {
+      closeModal(changeAvatarModalWindow);
+    })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      renewSaveButtonLabel(changeAvatarModalWindow);
     });
-  closeModal(changeAvatarModalWindow);
 }
 
 changeAvatarFormElement.addEventListener("submit", changeAvatarHandler);
@@ -140,12 +150,17 @@ function newPlaceFormHandler(evt) {
           createCard(cardData, { removeCard, likeCard, openCardImage }, userId)
         );
       })
+      .then(() => {
+        closeModal(createCardModalWindow);
+        newPlaceFormElement.reset();
+      })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        renewSaveButtonLabel(createCardModalWindow);
       });
   }
-  newPlaceFormElement.reset();
-  closeModal(createCardModalWindow);
 }
 newPlaceFormElement.addEventListener("submit", newPlaceFormHandler);
 
@@ -177,13 +192,13 @@ createCardButton.addEventListener("click", () => {
     createCardModalWindow.querySelector(validationSettings.formSelector),
     validationSettings
   );
-  renewSaveButtonLabel(createCardModalWindow);
+
   openModal(createCardModalWindow);
 });
 
 profileEditButton.addEventListener("click", () => {
   openModal(profileEditModalWindow);
-  renewSaveButtonLabel(profileEditModalWindow);
+
   nameInput.value = nameCurrent.textContent;
   jobInput.value = jobCurrent.textContent;
 

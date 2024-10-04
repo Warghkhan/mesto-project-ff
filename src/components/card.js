@@ -29,19 +29,24 @@ function createCard(card, { removeCard, likeCard, openCardImage }, userId) {
   }
 
   cardImage.addEventListener("click", () => openCardImage(cardElement));
-  cardLikeButton.addEventListener("click", () => likeCard(cardElement, card));
+  cardLikeButton.addEventListener("click", () =>
+    likeCard(cardLikeButton, likeCardCount, card)
+  );
 
   return cardElement;
 }
 
 function removeCard(cardElement, card) {
-  deleteOwnerCard(card);
-  cardElement.remove();
+  deleteOwnerCard(card)
+    .then(() => {
+      cardElement.remove();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
-function likeCard(cardElement, card) {
-  const cardLikeButton = cardElement.querySelector(".card__like-button");
-  const likeCardCount = cardElement.querySelector(".card__like-button-counter");
+function likeCard(cardLikeButton, likeCardCount, card) {
   const liking = cardLikeButton.classList.contains(
     "card__like-button_is-active"
   )
